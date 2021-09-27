@@ -46,11 +46,14 @@ export default {
           measurementId: "G-VDNWWN8E2L"
         },
         services: {
-          auth: true // Just as example. Can be any other service.
-        }
+          firestore: {
+            enablePersistence: false,
+          },
+          }
       }
     ]
   ],
+  
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

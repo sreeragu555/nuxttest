@@ -29,10 +29,10 @@ export default {
     },
     methods:{
         async addProduct(){
-             await this.$fire.firestore.collection('users').add({
+             await this.$fire.firestore.collection('products').add({
                 Product:this.name,
                 amount:this.amount
-            });
+            }).then(console.log("insetred"));
         }
     }
 }
@@ -56,6 +56,7 @@ export default {
     padding: 10px;
 }
 .card button{
+    cursor: pointer;
     padding :15px 10px;
     margin: 20px;
     background-color: gold;
