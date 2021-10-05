@@ -46,9 +46,8 @@ export default {
           measurementId: "G-VDNWWN8E2L"
         },
         services: {
-          firestore: {
-            enablePersistence: false,
-          },
+          firestore: true,
+          storage:true
           }
       }
     ]
