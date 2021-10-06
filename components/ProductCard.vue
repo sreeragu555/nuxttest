@@ -1,51 +1,63 @@
 <template>
-       <div class="card">
-  <img :src="imageurl" alt="Avatar" style="width:100%">
-  <div class="container">
-    <h4><b>{{name}}</b></h4> 
-    <p>{{amount}}</p> 
-    <button>Add to Cart</button>
+  <div class="card">
+    <img :src="imageurl" alt="Product image" style="width: 100%"/>
+    <h1>{{name}}</h1>
+    <p class="price">${{amount}}</p>
+    <p><button @click="additem">Add to Cart</button></p>
   </div>
-</div>
 </template>
 <script>
 export default {
-    name:"Productcard",
-    props:{
-        name:{type:String},
-        imageurl:{type:String},
-        amount:{type:Number}
-    },
-    data(){
-        return{
-           
-        }
-    },
-}
+  name: "Productcard",
+  props: {
+    name: { type: String },
+    imageurl: { type: String },
+    amount: { type: String },
+    prodid: {type:String}
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    additem(){
+      if(this.$store.state.cartproducts.length==0)
+        this.$store.dispatch('additemstocart',{
+            id:this.prodid,
+            Product_name:this.name,
+            amount:this.amount,
+            image:this.imageurl
+        })
+    }
+  }
+};
 </script>
 <style>
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 20%;
-  margin:20px 50px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  max-width: 300px;
+  margin: 10px;
+  text-align: center;
+  font-family: arial;
 }
 
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.price {
+  color: grey;
+  font-size: 22px;
 }
 
-.container {
-  padding: 2px 16px;
-}
 .card button {
-  cursor: pointer;
-  padding: 15px 10px;
-  margin: 20px;
-  background-color: rgb(135 129 231);
-  color: white;
   border: none;
-  font-weight: bold;
-  
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #422057ff;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
 }
 </style>

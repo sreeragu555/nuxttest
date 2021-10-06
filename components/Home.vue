@@ -1,15 +1,15 @@
 <template>
   <div>
       <Navbar/>
-      <div id="Products">
-          <div v-for="item in getallproducts" :key="item.index">
-             <ProductCard :name="item.name" :imageurl="item.imageurl" :amount="item.amount"/>
-          </div>
+      <ul>
+          <li v-for="item in getallproducts" :key="item.index" >
+             <ProductCard :name="item.Product_name" :imageurl="item.image" :amount="item.amount" :prodid="item.id"/>
+          </li>
+      </ul>
           <div v-if="noproductshow">
             No Product found
-
           </div>
-      </div>
+      
     </div>
 
 </template>
@@ -22,37 +22,36 @@ export default {
           }
   },
 created(){
-  this.$store.dispatch('allproduct/setitems')
+  this.$store.dispatch('setitems')
 },
 computed:{
  getallproducts(){
-   if(this.$store.state.allproduct.products.length!=0)
-   return this.$store.state.allproduct.products;
+   if(this.$store.state.products.length!=0)
+   {
+    this.noproductshow=false; 
+     return this.$store.state.products;
+   }
    else
     this.noproductshow=true;
  }
 },
-
-// created(){
-//   this.Products=this.$store.getters.Getproducts;
-//   console.log(this.Products)
-// },
-
-  // created() {
-  //     this.$fire.firestore.collection('products').get().then((query)=>{
-  //       query.forEach(element => {
-  //         // this.Products.push({
-  //         //   name:element.data().Product_name,
-  //         //   amount:element.data().amount,
-  //         //   imageurl:element.data().image
-  //         // })
-  //         this.$store.allproducts.products
-  //       });
-  //     })
-  //     console.log(this.Products)
-  //           },
-  methods:{
-    
-  }
 }
 </script>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+li{
+  float: left;
+}
+li div {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  font-size: 20px;
+  text-decoration: none;
+}
+</style>

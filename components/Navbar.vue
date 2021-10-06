@@ -2,7 +2,7 @@
   <div class="topnav">
     <a href="/">All Products</a>
     <a href="/AddProduct">Add product</a>
-    <a href="/Cart" style="float:right">My Cart</a>
+    <a href="/Cart" style="float:right">My Cart {{this.$store.state.cartproducts.length}}</a>
   </div>
 </template>
 <style>

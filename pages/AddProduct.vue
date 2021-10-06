@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="card">
+    <div class="card2">
       <span class="elements">
         <label>Product Name</label>
         <input type="text" name="pname" v-model="name" />
@@ -29,8 +29,8 @@ export default {
   },
   methods: {
      addProduct() {
-      imageData= this.onUpload(this.$refs.imagefile.files[0]);
-      const storageRef=this.$fire.storage.ref(`${imageData.name}`+ new Date()).put(imageData);
+      //imageData= this.$refs.imagefile.files[0];
+      const storageRef=this.$fire.storage.ref(`${this.$refs.imagefile.files[0].name}`+ new Date()).put(this.$refs.imagefile.files[0]);
       storageRef.on(`state_changed`,snapshot=>{
         this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
       }, error=>{console.log(error.message)},
@@ -51,11 +51,11 @@ export default {
 };
 </script>
 <style>
-.card {
+.card2 {
   display: grid;
   place-items: center;
   width: 60%;
-  margin: 10px auto;
+  margin: 50px auto;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 .elements {
@@ -68,7 +68,7 @@ export default {
   width: 100%;
   padding: 10px;
 }
-.card button {
+.card2 button {
   cursor: pointer;
   padding: 15px 10px;
   margin: 20px;
