@@ -2,7 +2,11 @@
   <div class="topnav">
     <a href="/">All Products</a>
     <a href="/AddProduct">Add product</a>
-    <a href="/Cart" style="float:right">My Cart {{this.$store.state.cartproducts.length}}</a>
+    <nuxt-link to="/Cart">
+    My Cart {{this.$store.state.cartproducts.length}}
+    </nuxt-link>
+    
+
   </div>
 </template>
 <style>

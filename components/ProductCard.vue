@@ -27,6 +27,7 @@ export default {
             amount:this.amount,
             image:this.imageurl
         })
+        
     }
   }
 };

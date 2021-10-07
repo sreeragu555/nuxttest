@@ -31,7 +31,8 @@ export const mutations = {
     removeitemsfromcart(value){
       this.commit('setProducts',value);
     },
-  additemstocart(value){
-    this.commit('setProducts',value);
+    additemstocart(value){
+      console.log(value)
+    this.commit('setProductscart',value);
   }
   }
