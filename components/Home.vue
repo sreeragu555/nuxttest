@@ -2,13 +2,24 @@
   <div>
       <Navbar/>
       <ul>
-          <li v-for="item in getallproducts" :key="item.index" >
+          <li v-for="item in getAllProducts" :key="item.index" >
              <ProductCard :name="item.Product_name" :imageurl="item.image" :amount="item.amount" :prodid="item.id"/>
           </li>
       </ul>
           <div v-if="noproductshow">
             No Product found
           </div>
+          <v-snackbar
+      :timeout="-1"
+      :value="true"
+      color="success"
+      absolute
+      right
+      rounded="pill"
+      top
+    >
+      Lorem ipsum dolor sit amet consectetur.
+    </v-snackbar>
       
     </div>
 
@@ -21,15 +32,12 @@ export default {
         noproductshow:false
           }
   },
-created(){
-  this.$store.dispatch('setitems')
-},
 computed:{
- getallproducts(){
-   if(this.$store.state.products.length!=0)
+ getAllProducts(){
+   if(this.$store.state.Product.products.length!=0)
    {
     this.noproductshow=false; 
-     return this.$store.state.products;
+    return this.$store.getters['Product/getProduct'];
    }
    else
     this.noproductshow=true;

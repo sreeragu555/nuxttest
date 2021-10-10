@@ -20,8 +20,8 @@ export default {
   },
   methods: {
     additem(){
-      if(this.$store.state.cartproducts.length==0)
-        this.$store.dispatch('additemstocart',{
+     // if(this.$store.state.Cart.cartproducts.length==0)
+        this.$store.dispatch('Cart/additemstocart',{
             id:this.prodid,
             Product_name:this.name,
             amount:this.amount,

@@ -1,9 +1,9 @@
 <template>
   <div class="topnav">
-    <a href="/">All Products</a>
-    <a href="/AddProduct">Add product</a>
+    <nuxt-link to="/">All Products</nuxt-link>
+    <nuxt-link to="/add-product">Add product</nuxt-link>
     <nuxt-link to="/Cart">
-    My Cart {{this.$store.state.cartproducts.length}}
+    My Cart {{this.$store.state.Cart.cartproducts.length}}
     </nuxt-link>
     
 
