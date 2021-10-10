@@ -11,7 +11,7 @@ export const actions = {
             amount:prod.data().amount,
             image:prod.data().image
           };
-          console.log(prodobj);
+          //console.log(prodobj);
           commit('Product/setProducts',prodobj)
         })
         
