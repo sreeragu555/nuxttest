@@ -3,7 +3,14 @@
     <img :src="imageurl" alt="Product image" style="width: 100%"/>
     <h1>{{name}}</h1>
     <p class="price">${{amount}}</p>
-    <p><button @click="additem">Add to Cart</button></p>
+    <div v-if="existInCart==false">
+    <p><button @click="additem" class="addtocart_btn">Add to Cart</button></p>
+    </div>
+    <div v-if="existInCart">
+      <button>+</button>
+      <p>{{getCartquantity()}}</p>
+      <button>-</button>
+    </div>  
   </div>
 </template>
 <script>
@@ -13,19 +20,31 @@ export default {
     name: { type: String },
     imageurl: { type: String },
     amount: { type: String },
-    prodid: {type:String}
+    prodid: {type:String},
+    existInCart : {type:Boolean}
   },
   data() {
     return {};
   },
   methods: {
+    getCartquantity(){
+      return this.$store.getters['Cart/getItemQuantity',this.prodid];
+    },
     additem(){
      // if(this.$store.state.Cart.cartproducts.length==0)
         this.$store.dispatch('Cart/additemstocart',{
             id:this.prodid,
             Product_name:this.name,
             amount:this.amount,
-            image:this.imageurl
+            image:this.imageurl,
+            quantity:1
+        })
+        this.existInCart = true
+        this.$store.dispatch('Product/updateState',{
+            id:this.prodid,
+            amount:this.amount,
+            image:this.imageurl,
+            existInCart:true
         })
         
     }
@@ -46,7 +65,7 @@ export default {
   font-size: 22px;
 }
 
-.card button {
+.addtocart_btn {
   border: none;
   outline: 0;
   padding: 12px;
@@ -58,7 +77,7 @@ export default {
   font-size: 18px;
 }
 
-.card button:hover {
+.addtocart_btn:hover {
   opacity: 0.7;
 }
 </style>

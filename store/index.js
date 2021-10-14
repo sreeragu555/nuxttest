@@ -9,7 +9,8 @@ export const actions = {
             id: prod.id,
             Product_name:prod.data().Product_name,
             amount:prod.data().amount,
-            image:prod.data().image
+            image:prod.data().image,
+            existInCart:false
           };
           //console.log(prodobj);
           commit('Product/setProducts',prodobj)
