@@ -6,11 +6,50 @@
     <div v-if="existInCart==false">
     <p><button @click="additem" class="addtocart_btn">Add to Cart</button></p>
     </div>
-    <div v-if="existInCart">
-      <button>+</button>
-      <p>{{getCartquantity()}}</p>
-      <button>-</button>
-    </div>  
+    <v-row>
+      <v-col v-if="existInCart"
+        cols="6"
+        md="4"
+      >
+        <v-card
+          class="pa-2"
+          tile
+        >
+          <v-btn
+      class="mx-2"
+      fab
+      small
+      color="primary"
+      @click="increaseQuantity"
+    >
+      <v-icon dark>
+        mdi-plus
+      </v-icon>
+    </v-btn>
+        </v-card>
+         <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          {{this.qty}}
+        </v-card>
+         <v-card
+          class="pa-2"
+        >
+         <v-btn
+      class="mx-2"
+      fab
+      small
+      color="primary"
+    >
+      <v-icon dark>
+        mdi-minus
+      </v-icon>
+    </v-btn>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>
@@ -24,11 +63,26 @@ export default {
     existInCart : {type:Boolean}
   },
   data() {
-    return {};
+    return {
+      cart:[],
+      qty:0,
+    };
   },
   methods: {
+    increaseQuantity(){
+      this.$store.dispatch('Cart/increase',this.prodid)
+    },
     getCartquantity(){
-      return this.$store.getters['Cart/getItemQuantity',this.prodid];
+      this.cart=this.$store.getters['Cart/getCart'];
+      this.cart.forEach(prod=>{
+            if(prod.id == this.prodid)
+            {
+              // console.log(prod.quantity);
+                this.qty=prod.quantity;
+            }
+        })
+
+      //return this.$store.getters['Cart/getItemQuantity'];
     },
     additem(){
      // if(this.$store.state.Cart.cartproducts.length==0)
@@ -46,7 +100,7 @@ export default {
             image:this.imageurl,
             existInCart:true
         })
-        
+       this.getCartquantity();
     }
   }
 };
