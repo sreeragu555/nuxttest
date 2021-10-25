@@ -3,11 +3,11 @@
     <img :src="imageurl" alt="Product image" style="width: 100%"/>
     <h1>{{name}}</h1>
     <p class="price">${{amount}}</p>
-    <div v-if="existInCart==false">
+    <div v-if="existInCartLocal==false">
     <p><button @click="additem" class="addtocart_btn">Add to Cart</button></p>
     </div>
     <v-row>
-      <v-col v-if="existInCart"
+      <v-col v-if="existInCartLocal"
         cols="6"
         md="4"
       >
@@ -29,7 +29,6 @@
         </v-card>
          <v-card
           class="pa-2"
-          outlined
           tile
         >
           {{this.qty}}
@@ -42,8 +41,9 @@
       fab
       small
       color="primary"
+      @click="decreaseQuantity"
     >
-      <v-icon dark>
+      <v-icon>
         mdi-minus
       </v-icon>
     </v-btn>
@@ -66,11 +66,21 @@ export default {
     return {
       cart:[],
       qty:0,
+      existInCartLocal:this.existInCart
     };
   },
   methods: {
     increaseQuantity(){
       this.$store.dispatch('Cart/increase',this.prodid)
+      this.qty++;
+    },
+    decreaseQuantity(){
+      
+      this.$store.dispatch('Cart/decrease',this.prodid)
+      this.qty--;
+      if(this.qty==0){
+        this.existInCartLocal = false;
+      }
     },
     getCartquantity(){
       this.cart=this.$store.getters['Cart/getCart'];
@@ -93,7 +103,7 @@ export default {
             image:this.imageurl,
             quantity:1
         })
-        this.existInCart = true
+        this.existInCartLocal = true
         this.$store.dispatch('Product/updateState',{
             id:this.prodid,
             amount:this.amount,
@@ -106,6 +116,9 @@ export default {
 };
 </script>
 <style>
+.v-icon{
+  color: black!important;
+}
 .card {
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   max-width: 300px;

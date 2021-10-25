@@ -14,7 +14,11 @@
         <label>Image</label>
         <input type="file" ref="imagefile" name="image" />
       </span>
-      <button @click="addProduct">ADD PRODUCT</button>
+      <v-progress-circular v-if="submitted"
+      indeterminate
+      color="amber"
+    ></v-progress-circular>
+      <button v-if="submitted==false" @click="addProduct">ADD PRODUCT</button>
     </div>
   </div>
 </template>
@@ -25,10 +29,12 @@ export default {
     return {
       name: null,
       amount: 0,
+      submitted:false
     };
   },
   methods: {
-     addProduct() {
+     async addProduct() {
+       this.submitted=true
       //imageData= this.$refs.imagefile.files[0];
       const storageRef=this.$fire.storage.ref(`${this.$refs.imagefile.files[0].name}`+ new Date()).put(this.$refs.imagefile.files[0]);
       storageRef.on(`state_changed`,snapshot=>{
@@ -40,9 +46,16 @@ export default {
                Product_name:this.name,
                amount:this.amount,
                image:url
-          }).then(
-            console.log("insetred")
-          );
+          }).then(function(docRef) {
+            this.$store.dispatch('Product/additems',{
+              id: docRef.id,
+              Product_name:this.name,
+              amount:this.amount,
+              image:url,
+              existInCart:false
+            }),
+            this.$router.push('/')
+          });
         });
       }      
       );
@@ -65,6 +78,7 @@ export default {
   display: table;
 }
 .elements input {
+  border-style: revert!important;;
   width: 100%;
   padding: 10px;
 }

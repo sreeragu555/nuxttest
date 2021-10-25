@@ -1,8 +1,7 @@
 <template>
     <div>
         <Navbar/>
-        Cart
-        <v-card
+        <v-card v-if="this.$store.state.Cart.cartproducts.length!=0"
     class="mx-auto"
     max-width="400"
     tile
@@ -15,7 +14,15 @@
     </v-list-item>
 
         </v-card>
-
+<v-card v-if="this.$store.state.Cart.cartproducts.length==0"
+    class="mx-auto"
+    color="secondary"
+    width="200px"
+  >
+    <v-card-text>
+      There is no items in cart
+    </v-card-text>
+  </v-card>
         <!-- <ul>
           <li v-for="item in getCartproducts" :key="item.index" >
              {{item}}

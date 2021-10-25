@@ -9,18 +9,6 @@
           <div v-if="noproductshow">
             No Product found
           </div>
-          <v-snackbar
-      :timeout="-1"
-      :value="true"
-      color="success"
-      absolute
-      right
-      rounded="pill"
-      top
-    >
-      Lorem ipsum dolor sit amet consectetur.
-    </v-snackbar>
-      
     </div>
 
 </template>
